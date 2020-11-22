@@ -1,6 +1,12 @@
 <?php declare(strict_types=1);
 
-require('autoload.php');
+spl_autoload_register(function ($class) {
+    $file = __DIR__.'/'.str_replace('\\', '/', str_replace('Bloganza\\', '', $class)).'.php';
+
+    if (is_file($file)) {
+        require $file;
+    }
+});
 
 $settings = require('Config/Settings.php');
 

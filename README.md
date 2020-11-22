@@ -22,7 +22,7 @@ INSERT INTO `posts` VALUES (1,'first-post','First post','<h1>First post</h1><p>L
 
 ## TODO
 
-- Rework bootstrapping and autoloading. Right now it is only meant to test if the application works.
+- Rework bootstrapping. Right now it is only meant to test if the application works.
 - Setup routing for all posts, single posts and pretty URLs.
 - Implement control panel for creating new posts.
 - Create tests with  e.g. `PHPUnit`, `phpspec`, `Behat` and `Codeception`.
