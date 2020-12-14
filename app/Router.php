@@ -52,10 +52,12 @@ class Router
         $match = [];
 
         foreach ($this->routes as $route) {
-            $pattern = preg_replace('/<'.self::REGEX.'>/', self::REGEX, $route['slug']);
-            $pattern = '/^'.str_replace('/', '\/', $pattern).'$/';
+            $search = ['/<'.self::REGEX.'>/', '/\//'];
+            $replace = [self::REGEX, '\/'];
 
-            preg_match_all($pattern, $slug, $matches);
+            $pattern = preg_replace($search, $replace, $route['slug']);
+
+            preg_match_all('/^'.$pattern.'$/', $slug, $matches);
 
             if (!empty($matches[0])) {
                 $match = $route;
