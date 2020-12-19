@@ -15,11 +15,11 @@ $pdo = new PDO($dsn, $settings['PDO']['user'], $settings['PDO']['password'], $se
 
 $router = new Bloganza\Router();
 
-$router->add('/', 'get', function($parameters = []) {
+$router->add('/', 'get', function() {
     echo 'Home';
 });
 
-$router->add('/first-post', 'get', function($parameters = []) use ($pdo) {
+$router->add('/<slug>', 'get', function() use ($pdo) {
     $db = new Bloganza\Adapters\PdoAdapter($pdo);
     $mapper = new Bloganza\Mappers\Post($db);
     $repository = new Bloganza\Repositories\Post($mapper);
@@ -30,9 +30,8 @@ $router->add('/first-post', 'get', function($parameters = []) use ($pdo) {
     var_dump($post);
 });
 
-$router->add('/admin/page/<id>/<type>', 'get', function($parameters = []) {
-    var_dump($parameters);
+$router->add('/admin/<type>/<id>', 'get', function() {
     echo 'Admin page';
 });
 
-$router->checkRoutes();
+$router->resolve();

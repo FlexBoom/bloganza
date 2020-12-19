@@ -4,7 +4,7 @@ namespace Bloganza;
 
 class Router
 {
-    private const REGEX = '[a-zA-Z0-9_-]+';
+    private const REGEX = '([a-zA-Z0-9_-]+)';
     private array $routes = [];
 
     /**
@@ -69,11 +69,11 @@ class Router
     }
 
     /**
-     * Check routes against current slug
+     * Check added routes against current slug
      *
      * @return void
      */
-    public function checkRoutes(): void
+    public function resolve(): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $slug = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -81,8 +81,7 @@ class Router
         $match = $this->matchRoute($slug);
 
         if (isset($match['slug']) && $method === $match['method'] && is_callable($match['function'])) {
-            $parameters = $this->getParameters($slug, $match['slug']);
-            $match['function']($parameters);
+            $match['function']();
         }
     }
 }
