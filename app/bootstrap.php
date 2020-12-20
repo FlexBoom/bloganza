@@ -19,7 +19,7 @@ $router->add('/', 'get', function() {
     echo 'Home';
 });
 
-$router->add('/<slug>', 'get', function() use ($pdo) {
+$router->add('/<slug>', 'get', function($params) use ($pdo) {
     $db = new Bloganza\Adapters\PdoAdapter($pdo);
     $mapper = new Bloganza\Mappers\Post($db);
     $repository = new Bloganza\Repositories\Post($mapper);
@@ -28,10 +28,12 @@ $router->add('/<slug>', 'get', function() use ($pdo) {
     $post = $posts->getPost(1);
 
     var_dump($post);
+    var_dump($params);
 });
 
-$router->add('/admin/<type>/<id>', 'get', function() {
+$router->add('/admin/<type>/<id>', 'get', function($params) {
     echo 'Admin page';
+    var_dump($params);
 });
 
 $router->resolve();
